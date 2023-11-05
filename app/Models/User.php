@@ -9,10 +9,15 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\{HasMedia, InteractsWithMedia, MediaCollections\Models\Media};
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, SoftDeletes, InteractsWithMedia;
+
+    protected $dates = ['deleted_at'];
+
+    const MEDIA_USER = 'user';
 
     /**
      * The attributes that are mass assignable.
@@ -44,4 +49,34 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function registerMediaCollections(Media $media = null): void
+    {
+        $this->addMediaCollection(self::MEDIA_USER)
+            ->acceptsMimeTypes(['image/jpeg','image/png'])
+            ->singleFile()
+            ->useDisk('media')
+            ->useFallbackUrl(asset('default-profile.webp'))
+            ->useFallbackUrl(asset('default-profile.webp'), 'thumbnail')
+            ->useFallbackPath(public_path(asset('default-profile.webp')))
+            ->useFallbackPath(public_path(asset('default-profile.webp')), 'thumbnail')
+            ->registerMediaConversions(function (Media $media) {
+                $this->addMediaConversion('thumbnail')
+                      ->width(50)
+                      ->height(50);
+            });
+    }
+
+    public function saveMedia()
+    {
+        $this->addMedia(request()->profile)->toMediaCollection('user');
+    }
+
+    protected function password(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) =>  $value,
+            set: fn ($value) =>  bcrypt($value),
+        );
+    }
 }
