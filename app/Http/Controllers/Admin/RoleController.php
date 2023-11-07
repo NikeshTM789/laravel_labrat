@@ -49,7 +49,7 @@ class RoleController extends MasterController
             return response()->json(["data" => $pagination, "recordsFiltered" => $filteredTotal, "recordsTotal" => $total]);
         }
         $this->title = 'Role list';
-        $this->datatable = $this->sweetalert = true;
+        $this->dt = $this->sa = true;
         return $this->view('index');
     }
 
@@ -61,7 +61,7 @@ class RoleController extends MasterController
         $this->title = 'Role Create';
         $permissions = Permission::get(['id', 'name']);
         $role_permissions = collect([]);
-        $this->select2 = true;
+        $this->s2 = true;
         return $this->view('create')->with(['role' => new Role, 'permissions' => $permissions, 'role_permissions' => $role_permissions]);
     }
 
@@ -93,7 +93,7 @@ class RoleController extends MasterController
     {
         $this->title = 'Role Edit';
         $permissions = Permission::get(['id', 'name']);
-        $this->select2 = true;
+        $this->s2 = true;
         $role_permissions= $role->permissions->pluck('id');
         return $this->view('edit')->with(['select2' => true, 'role' => $role, 'permissions' => $permissions, 'role_permissions' => $role_permissions]);
     }

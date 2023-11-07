@@ -36,7 +36,7 @@ class TrashController extends MasterController
                     ->rawColumns(['options'])
                     ->make(true);
         }
-        $this->datatable = $this->sweetalert = true;
+        $this->dt = $this->sa = true;
         $this->title = 'Product Trash';
         return $this->view('trash');
     }

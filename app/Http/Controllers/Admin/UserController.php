@@ -55,7 +55,7 @@ class UserController extends MasterController
             return response()->json(["data" => $pagination, "recordsFiltered" => $filteredTotal, "recordsTotal" => $total]);
         }
         $this->title = 'User list';
-        $this->sweetalert = $this->datatable = true;
+        $this->sa = $this->dt = true;
         return $this->view('index');
     }
 
@@ -65,7 +65,7 @@ class UserController extends MasterController
     public function create()
     {
         $this->title = 'User create';
-        $this->select2 = true;
+        $this->s2 = true;
         return $this->view('create')->with(['file' => true, 'user' => new User]);
     }
 
@@ -99,7 +99,7 @@ class UserController extends MasterController
     public function edit(User $user)
     {
         $this->title = 'User edit';
-        $this->select2 = $this->sweetalert = true;
+        $this->s2 = $this->sa = true;
         return $this->view('edit')->with(['file' => true, 'user' => $user]);
     }
 

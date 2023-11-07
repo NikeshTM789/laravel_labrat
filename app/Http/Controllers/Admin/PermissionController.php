@@ -49,7 +49,7 @@ class PermissionController extends MasterController
             return response()->json(["data" => $pagination, "recordsFiltered" => $filteredTotal, "recordsTotal" => $total]);
         }
         $this->title = 'Permission list';
-        $this->datatable = $this->sweetalert = true;
+        $this->dt = $this->sa = true;
         return $this->view('index');
     }
 

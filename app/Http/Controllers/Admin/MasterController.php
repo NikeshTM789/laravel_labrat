@@ -10,16 +10,16 @@ class MasterController extends Controller
 {
     use Toastr;
 
-    protected $title = 0, $module = null, $select2 = false, $sweetalert = false, $summernote = false, $datatable = false;
+    protected $title = 0, $module = null, $s2 = false, $sa = false, $sm = false, $dt = false;
 
     protected function view($path)
     {
         $title = $this->title;
         $module = $this->module;
-        config(['adminlte.plugins.Select2.active' => $this->select2]);
-        config(['adminlte.plugins.Sweetalert2.active' => $this->sweetalert]);
-        config(['adminlte.plugins.Summernote.active' => $this->summernote]);
-        config(['adminlte.plugins.Datatables.active' => $this->datatable]);
+        config(['adminlte.plugins.Select2.active' => $this->s2]);
+        config(['adminlte.plugins.Sweetalert2.active' => $this->sa]);
+        config(['adminlte.plugins.Summernote.active' => $this->sm]);
+        config(['adminlte.plugins.Datatables.active' => $this->dt]);
 
         return view('admin.'.$path, compact('title','module'));
     }

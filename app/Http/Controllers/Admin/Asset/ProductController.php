@@ -55,7 +55,7 @@ class ProductController extends MasterController
                     ->rawColumns(['status','featured','options'])
                     ->make(true);
         }
-        $this->datatable = $this->sweetalert = true;
+        $this->dt = $this->sa = true;
         $this->title = 'Products';
         return $this->view('index');
     }
@@ -68,7 +68,7 @@ class ProductController extends MasterController
         $this->title = 'Create Product';
         $units = Unit::select('id','title')->get();
         $categories = Category::get(['id','name']);
-        $this->select2 = $this->summernote = true;
+        $this->s2 = $this->sm = true;
 
         return $this->view('create')->with(['categories' => $categories, 'product' => new Product, 'units' => $units]);
     }
@@ -120,7 +120,7 @@ class ProductController extends MasterController
                 'name' => $media->name
             ];
         });
-        $this->select2 = $this->summernote = true;
+        $this->s2 = $this->sm = true;
 
         $with = ['categories' => $categories, 'product' => $product, 'units' => $units, 'gallery' => $gallery, 'featured' => $featured];
 
