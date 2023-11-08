@@ -7,8 +7,6 @@
 @stop
 
 @section('content')
-
-
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
@@ -22,6 +20,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
+        
               @component('admin.users.roles.form', ['role' => $role, 'permissions' => $permissions, 'role_permissions' => $role_permissions, 'action' => route('admin.role.update', $role->id)])
                 @method('PATCH')
               @endcomponent

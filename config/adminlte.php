@@ -491,7 +491,7 @@ return [
                 [
                     'type' => 'js',
                     'asset' => true,
-                    'location' => $host.'/backend/scripts/datatable_setup.js',
+                    'location' => $host.'/backend/scripts/select2_setup.js',
                 ],
                 [
                     'type' => 'css',

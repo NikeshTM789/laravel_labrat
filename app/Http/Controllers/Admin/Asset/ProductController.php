@@ -104,7 +104,7 @@ class ProductController extends MasterController
         $this->title = 'Edit Product';
         $units = Unit::select('id','title')->get();
         $categories = Category::get(['id','name']);
-        $gallery = $product->getMedia(PRODUCT::GALLERY)->map(function($media){
+        $gallery = $product->getMedia(PRODUCT::MEDIA_GALLERY)->map(function($media){
             return [
                 'id' => $media->id,
                 'url' => $media->getUrl('dropzone'),
@@ -112,7 +112,7 @@ class ProductController extends MasterController
                 'name' => $media->name
             ];
         });
-        $featured = $product->getMedia(PRODUCT::FEATURED)->map(function($media){
+        $featured = $product->getMedia(PRODUCT::MEDIA_FEATURED)->map(function($media){
             return [
                 'id' => $media->id,
                 'url' => $media->getUrl('dropzone'),
