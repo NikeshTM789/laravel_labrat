@@ -6,7 +6,7 @@ use App\Http\Controllers\Admin\MasterController;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\ProductRequest;
-use App\Models\Admin\{Product, Unit, Category};
+use App\Models\{Product, Category};
 use DB, DataTables;
 
 class ProductController extends MasterController
@@ -66,11 +66,10 @@ class ProductController extends MasterController
     public function create()
     {
         $this->title = 'Create Product';
-        $units = Unit::select('id','title')->get();
         $categories = Category::get(['id','name']);
         $this->s2 = $this->sm = true;
 
-        return $this->view('create')->with(['categories' => $categories, 'product' => new Product, 'units' => $units]);
+        return $this->view('create')->with(['categories' => $categories, 'product' => new Product]);
     }
 
     /**
@@ -102,7 +101,6 @@ class ProductController extends MasterController
     public function edit(Product $product)
     {
         $this->title = 'Edit Product';
-        $units = Unit::select('id','title')->get();
         $categories = Category::get(['id','name']);
         $gallery = $product->getMedia(PRODUCT::MEDIA_GALLERY)->map(function($media){
             return [
@@ -122,7 +120,7 @@ class ProductController extends MasterController
         });
         $this->s2 = $this->sm = true;
 
-        $with = ['categories' => $categories, 'product' => $product, 'units' => $units, 'gallery' => $gallery, 'featured' => $featured];
+        $with = ['categories' => $categories, 'product' => $product, 'gallery' => $gallery, 'featured' => $featured];
 
         if (str_contains(url()->previous(), 'admin/product/create')) {
             $with['continue_step'] = true;

@@ -75,17 +75,6 @@
               @enderror
             </div>
 
-            <div class="form-group col-6">
-              <x-adminlte-select2 name="unit_id" class="select2" igroup-size="sm" label="Unit" data-placeholder="Select an Unit..." :config="['allowClear' => true]">
-                  @foreach ($units as $unit)
-                  <option value="{{ $unit->id }}" @selected($unit->id == ($product->unit->id ?? false))>{{ $unit->title }}</option>
-                  @endforeach
-                  @error('unit_id')
-                    <div class="text-danger">{{ $message }}</div>
-                  @enderror
-              </x-adminlte-select2>
-            </div>
-
           </div>
           <textarea name="details" id="summernote">{{ optional($product)->details ?? old('details') }}</textarea>
           @isset($update)

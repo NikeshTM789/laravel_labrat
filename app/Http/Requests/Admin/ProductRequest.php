@@ -28,7 +28,6 @@ class ProductRequest extends FormRequest
             'price' => 'required|numeric',
             'discounted_price' => 'required|numeric',
             'quantity' => 'required|numeric',
-            'unit_id' => 'required|exists:units,id',
             'details' => 'nullable'
         ];
     }

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Asset;
 use App\Http\Controllers\Admin\MasterController;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Admin\Category;
+use App\Models\Category;
 use Illuminate\Support\Facades\Validator;
 use DB;
 

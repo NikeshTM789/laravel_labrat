@@ -8,7 +8,7 @@ use App\Traits\Toastr;
 
 class MasterController extends Controller
 {
-    use Toastr;
+    // use Toastr;
 
     protected $title = 0, $module = null, $s2 = false, $sa = false, $sm = false, $dt = false;
 

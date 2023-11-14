@@ -6,17 +6,19 @@ namespace App\Traits;
  */
 Trait Toastr
 {
-    public function __construct()
-    {
-        config(['adminlte.plugins.Toastr.active' => true]);
-    }
-
     public function flash_success($message = 'Done 😎'){
-    	request()->session()->flash('success', $message);
+        $this->initToastr();
+    	request()->session()->flash('ok', $message);
     }
 
     public function flash_error($message = 'Opps! something went wrong 🤬'){
-    	request()->session()->flash('error', $message);
+        $this->initToastr();
+    	request()->session()->flash('err', $message);
+    }
+
+    function initToastr()
+    {
+        // config(['adminlte.plugins.Toastr.active' => true]);
     }
 }
  ?>

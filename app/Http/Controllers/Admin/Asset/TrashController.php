@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Asset;
 
 use App\Http\Controllers\Admin\MasterController;
 use Illuminate\Http\Request;
-use App\Models\Admin\Product;
+use App\Models\Product;
 use DB, DataTables;
 
 class TrashController extends MasterController

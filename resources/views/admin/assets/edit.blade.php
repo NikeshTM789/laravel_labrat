@@ -19,7 +19,7 @@
           <!-- /.card-header -->
 
           <!-- form start -->
-          @component('admin.assets.form', ['gallery' => $gallery, 'featured' => $featured, 'continue_step' => isset($continue_step), 'update' => true, 'product' => $product, 'categories' => $categories, 'units' => $units, 'action' => route('admin.product.update', $product->uuid)])
+          @component('admin.assets.form', ['gallery' => $gallery, 'featured' => $featured, 'continue_step' => isset($continue_step), 'update' => true, 'product' => $product, 'categories' => $categories, 'action' => route('admin.product.update', $product->uuid)])
           @endcomponent
         </div>
       </div><!--/. container-fluid -->

@@ -1,6 +1,7 @@
 @push('styles')
 <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
 @endpush
+
 <form method="POST" action="{{ $action }}" enctype="multipart/form-data">
   @csrf
   {{ $slot }}

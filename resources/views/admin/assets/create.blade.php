@@ -18,7 +18,7 @@
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          @component('admin.assets.form', ['gallery' => [], 'featured' => [], 'continue_step' => isset($continue_step), 'product' => $product, 'categories' => $categories, 'units' => $units, 'action' => route('admin.product.store')])
+          @component('admin.assets.form', ['gallery' => [], 'featured' => [], 'continue_step' => isset($continue_step), 'product' => $product, 'categories' => $categories, 'action' => route('admin.product.store')])
           @endcomponent
         </div>
       </div><!--/. container-fluid -->

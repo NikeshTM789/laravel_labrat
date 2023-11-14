@@ -74,15 +74,13 @@ class UserController extends MasterController
      */
     public function store(UserRequest $request)
     {
+        $message = null;
         try {
             event(new UserCreateEvent($request, $request->role));
-            $this->flash_success('An email has been sent to the user');
         } catch (\Exception $e) {
-            dd($e);
-            $this->flash_error();
+            $message = $e->getMessage();
         }
-
-        return back();
+        return back()->with(['success' => 'An email has been sent to the user']);
     }
 
     /**
@@ -111,9 +109,9 @@ class UserController extends MasterController
         DB::transaction(function () use($user, $request) {
             $formData = ($request->safe()->except('role'));
             tap($user, fn($user) => $user->update($formData))->syncRoles($request->role);
-            $user->saveMedia();
+            $user->saveMedia($request->profile);
         });
-        return back()->with('success','User Updated');
+        return back()->with(['success' => 'User Updated']);
     }
 
     /**
@@ -134,9 +132,7 @@ class UserController extends MasterController
     public function restore($user)
     {
         $user = User::onlyTrashed()->findOrFail($user)->restore();
-        $this->flash_success('User restored');
-
-        return back();
+        return back()->with(['success' => 'User restored']);
     }
 
     public function deleteMedia(User $user)

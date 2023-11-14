@@ -2,12 +2,7 @@
 
 @section('title', 'Dashboard')
 
-@section('content_header')
-    <h1>Dashboard</h1>
-@stop
-
 @section('content')
-
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">

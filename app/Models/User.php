@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\{Product, Comment};
 use Spatie\MediaLibrary\{HasMedia, InteractsWithMedia, MediaCollections\Models\Media};
 
 class User extends Authenticatable implements HasMedia
@@ -16,6 +17,11 @@ class User extends Authenticatable implements HasMedia
     use HasApiTokens, HasFactory, Notifiable, HasRoles, SoftDeletes, InteractsWithMedia;
 
     protected $dates = ['deleted_at'];
+
+    const Supreme = 'Supreme';
+    const Admin = 'Admin';
+    const Buyer = 'Buyer';
+    const User = 'User';
 
     const MEDIA_USER = 'user';
 
@@ -50,6 +56,24 @@ class User extends Authenticatable implements HasMedia
         'password' => 'hashed',
     ];
 
+    public function products()
+    {
+        return $this->hasMany(Product::class,'added_by');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+        static::saved(function() {
+            config(['adminlte.plugins.Toastr.active' => true]);
+        });
+    }
+
     public function registerMediaCollections(Media $media = null): void
     {
         $this->addMediaCollection(self::MEDIA_USER)
@@ -67,9 +91,11 @@ class User extends Authenticatable implements HasMedia
             });
     }
 
-    public function saveMedia()
+    public function saveMedia($file)
     {
-        $this->addMedia(request()->profile)->toMediaCollection('user');
+        if ($file) {
+            $this->addMedia(request()->profile)->toMediaCollection('user');
+        }
     }
 
     protected function password(): Attribute

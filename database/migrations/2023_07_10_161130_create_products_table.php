@@ -17,8 +17,6 @@ return new class extends Migration
             $table->tinyText('name');
             $table->tinyText('slug');
             $table->tinyInteger('quantity');
-            $table->unsignedTinyInteger('unit_id');
-            $table->foreign('unit_id')->references('id')->on('units');
             $table->decimal('price', 8, 2);
             $table->decimal('discounted_price', 8, 2);
             $table->boolean('featured')->default(0);

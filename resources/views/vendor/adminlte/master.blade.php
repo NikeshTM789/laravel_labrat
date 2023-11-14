@@ -36,6 +36,7 @@
     @endif
 
     {{-- Extra Configured Plugins Stylesheets --}}
+    {{ config(['adminlte.plugins.Toastr.active' => (session('error') || session('success'))]) }}
     @include('adminlte::plugins', ['type' => 'css'])
 
     <style>
@@ -116,7 +117,7 @@
     @if(session('error') || session('success'))
     <script>
     toastr.options.showMethod = 'slideDown';
-    toastr.options.hideMethod = 'slideUp';
+    toastr.options.hideMethod = 'fadeOut';
     toastr.options.progressBar = true;
     toastr.options.timeOut = 5000;
     </script>

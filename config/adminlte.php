@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 // $host = $full_url.$_SERVER['SERVER_NAME'];
 
 $host = env('APP_URL');
-
 return [
 
     /*

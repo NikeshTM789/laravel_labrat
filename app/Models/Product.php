@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Models\Admin;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Models\Admin\Unit;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\User;
+use App\Models\{User, Product};
 use Spatie\MediaLibrary\{HasMedia, InteractsWithMedia, MediaCollections\Models\Media};
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,10 +21,10 @@ class Product extends Model implements HasMedia
         'name',
         'quantity',
         'price',
-        'unit_id',
         'discounted_price',
         'featured',
-        'details'
+        'details',
+        'added_by'
     ];
 
     public function getRouteKeyName() {
@@ -37,9 +36,9 @@ class Product extends Model implements HasMedia
         return $this->belongsToMany(Category::class);
     }
 
-    public function unit()
+    public function comments()
     {
-        return $this->belongsTo(Unit::class);
+        return $this->hasMany(Comment::class);
     }
 
     public static function boot()
@@ -49,7 +48,9 @@ class Product extends Model implements HasMedia
             $product->uuid = str()->uuid();
             // $product->slug = str()->slug(request()->name);
             $product->slug = substr(md5(uniqid(rand(), true)), 0, 10);
-            $product->added_by = auth()->id();
+            if (auth()->check()) {
+                $product->added_by = auth()->id();
+            }
         });
         static::deleting(function($product) { # soft delete too
         });
